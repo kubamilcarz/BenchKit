@@ -20,5 +20,9 @@ class DataModel: ObservableObject {
     @Published var isShowingPaywall = false
     @Published var isShowingSettings = false
     @Published var isShowingWhatsNew = false
+    @Published var isShowingGoalsSheet = false
+    @Published var isShowingStats = false
+    
+    @Published var isShowingNewWorkout = false
     
 }

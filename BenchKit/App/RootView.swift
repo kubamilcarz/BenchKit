@@ -28,6 +28,18 @@ struct RootView: View {
     
     var body: some View {
         content
+            .sheet(isPresented: $model.isShowingStats) {
+                StatsSheet()
+                #if os(visionOS) || os(macOS)
+                .frame(width: 500, height: 700)
+                #endif
+            }
+            .sheet(isPresented: $model.isShowingNewWorkout) {
+                AddWorkoutSheet()
+                #if os(visionOS) || os(macOS)
+                .frame(width: 500, height: 700)
+                #endif
+            }
             .sheet(isPresented: $model.isShowingSettings) {
                 SettingsView()
                 #if os(visionOS) || os(macOS)

@@ -14,5 +14,7 @@ enum Defaults {
     static let hapticsOn = "APP_HapticsOn"
     static let appLock = "APP_AppLock"
     
+    static let weeklyGoal = "APP_WeeklyGoal"
+    static let showingGallery = "APP_SC_ShowingGallery"
     
 }

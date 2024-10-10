@@ -13,7 +13,7 @@ struct AppView: View {
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            VStack {
+            VStack(spacing: 0) {
                 ZStack {
                     HStack {
                         Button { } label: {
@@ -29,64 +29,26 @@ struct AppView: View {
                         .labelsHidden()
                 }
                 .padding(.horizontal, 15)
-                .padding(.bottom, 5)
+                .padding(.vertical, 5)
                 
-                List {
-                    VStack(spacing: 0) {
-                        HStack(spacing: 12) {
-                            ForEach(0..<7, id: \.self) { id in
-                                VStack {
-                                    Circle().fill(.secondary)
-                                    
-                                    Text("M")
-                                        .font(.subheadline)
-                                        .foregroundStyle(.secondary)
-                                }
-                                .id(id)
-                            }
-                        }
-                        .padding()
+                Divider()
+                
+                ScrollView {
+                    VStack(spacing: 30) {
+                        WeekStatsView()
                         
-                        Divider()
-                        
-                        HStack(alignment: .top, spacing: 5) {
-                            VStack(alignment: .leading) {
-                                Text("Goals")
-                                    .font(.title3.bold())
-                                Text("2 of 5 completed")
-                                    .foregroundStyle(.secondary)
-                                
-                                Button("Update") { }
-                                    .controlSize(.small)
-                                    .buttonStyle(.bordered)
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            
-                            Circle().fill(.ultraThinMaterial).frame(height: 80)
+                        VStack(spacing: 15) {
+                            workout
+                            workout
+                            workout
                         }
-                        .padding()
                     }
-                    .background(.ultraThinMaterial, in: .rect(cornerRadius: 12))
-                    .listRowSeparator(.hidden)
-                    
-                    Section {
-                        workout
-                        workout
-                        workout
-                    }
-                    .listRowSeparator(.hidden)
-                    .listRowSpacing(15)
-                    .listSectionSpacing(15)
+                    .padding()
                 }
-                .listStyle(.plain)
-                .listSectionSpacing(50)
-                .listRowSpacing(15)
-                .listRowSeparator(.hidden)
-                .listSectionSeparator(.hidden)
             }
             
             Button {
-                
+                dataModel.isShowingNewWorkout = true
             } label: {
                 Image(systemName: "plus")
                     .font(.largeTitle.bold())
@@ -96,14 +58,16 @@ struct AppView: View {
                     .clipShape(.circle)
             }
             .buttonStyle(.plain)
-            .padding()
+            .padding(.horizontal)
         }
+        .environmentObject(dataModel)
         .navigationTitle("Workouts")
         .navigationBarTitleDisplayMode(.inline)
+        .background(.regularMaterial)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button("Stats", systemImage: "chart.bar.doc.horizontal.fill") {
-                    
+                    dataModel.isShowingStats = true
                 }
             }
             
@@ -119,7 +83,7 @@ struct AppView: View {
     private var workout: some View {
         VStack(alignment: .leading, spacing: 15) {
             HStack {
-                Label("Oct 3, 2024", systemImage: "checkmark.circle.fill")
+                label("Oct 3, 2024", systemImage: "checkmark.circle.fill")
                     .font(.headline)
                     .tint(.green)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -177,7 +141,7 @@ struct AppView: View {
             .font(.subheadline)
             .padding([.bottom, .horizontal])
         }
-        .background(.ultraThinMaterial)
+        .background(.background)
         .clipShape(.rect(cornerRadius: 12))
     }
     
