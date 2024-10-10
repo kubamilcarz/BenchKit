@@ -11,11 +11,19 @@ import TelemetryClient
 enum Analytics {
     
     // TODO: - Telemetry Analytics
-    case telemetry
+    case showedPaywall
+    case finishedOnboarding
+    case openedSettings
+    case sentFeedback
     
     var id: String {
         switch self {
-        case .telemetry: return "telemetry"
+            
+            
+            case .showedPaywall: return "Showed-Paywall"
+            case .finishedOnboarding: return "Finished-Onboarding"
+            case .openedSettings: return "Opened-Settings"
+            case .sentFeedback: return "Sent-Feedback"
         }
     }
 }
@@ -25,6 +33,6 @@ class AnalyticsManager: ObservableObject {
     static let shared = AnalyticsManager()
     
     func log(_ signal: Analytics, values: [String: String] = [:]) {
-        TelemetryManager.send(signal.id, for: nil, with: values)
+        TelemetryDeck.signal(signal.id, parameters: values)
     }
 }

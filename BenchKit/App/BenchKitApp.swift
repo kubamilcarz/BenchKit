@@ -56,7 +56,7 @@ struct BenchKitApp: App {
     var body: some Scene {
         WindowGroup {
             content
-                .onChange(of: scenePhase) { newValue in
+                .onChange(of: scenePhase) { _, newValue in
                     switch newValue {
                     case .background:
                         addQuickActions()

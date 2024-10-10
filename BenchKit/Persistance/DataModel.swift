@@ -18,5 +18,7 @@ class DataModel: ObservableObject {
     }
     
     @Published var isShowingPaywall = false
+    @Published var isShowingSettings = false
+    @Published var isShowingWhatsNew = false
     
 }
