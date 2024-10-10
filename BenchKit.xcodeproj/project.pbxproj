@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C816FA082CB82F0F001A3081 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = C816FA072CB82F0F001A3081 /* RevenueCat */; };
+		C816FA0A2CB82F0F001A3081 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = C816FA092CB82F0F001A3081 /* RevenueCatUI */; };
 		C8DF60F82CB7BCC400473389 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8DF60F72CB7BCC400473389 /* StoreKit.framework */; };
 		C8DF60FB2CB7BCE300473389 /* WishKit in Frameworks */ = {isa = PBXBuildFile; productRef = C8DF60FA2CB7BCE300473389 /* WishKit */; };
 		C8DF60FE2CB7BCEE00473389 /* KubaComponents in Frameworks */ = {isa = PBXBuildFile; productRef = C8DF60FD2CB7BCEE00473389 /* KubaComponents */; };
@@ -48,7 +50,9 @@
 			files = (
 				C8DF61042CB7BD2F00473389 /* TelemetryClient in Frameworks */,
 				C8DF61012CB7BCFB00473389 /* Algorithms in Frameworks */,
+				C816FA082CB82F0F001A3081 /* RevenueCat in Frameworks */,
 				C8DF60FB2CB7BCE300473389 /* WishKit in Frameworks */,
+				C816FA0A2CB82F0F001A3081 /* RevenueCatUI in Frameworks */,
 				C8DF60F82CB7BCC400473389 /* StoreKit.framework in Frameworks */,
 				C8DF60FE2CB7BCEE00473389 /* KubaComponents in Frameworks */,
 				C8DF61062CB7BD2F00473389 /* TelemetryDeck in Frameworks */,
@@ -108,6 +112,8 @@
 				C8DF61002CB7BCFB00473389 /* Algorithms */,
 				C8DF61032CB7BD2F00473389 /* TelemetryClient */,
 				C8DF61052CB7BD2F00473389 /* TelemetryDeck */,
+				C816FA072CB82F0F001A3081 /* RevenueCat */,
+				C816FA092CB82F0F001A3081 /* RevenueCatUI */,
 			);
 			productName = BenchKit;
 			productReference = C8175EB32CB6765C002D3F34 /* BenchKit.app */;
@@ -142,6 +148,7 @@
 				C8DF60FC2CB7BCEE00473389 /* XCRemoteSwiftPackageReference "KubaComponents" */,
 				C8DF60FF2CB7BCFB00473389 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				C8DF61022CB7BD2F00473389 /* XCRemoteSwiftPackageReference "SwiftSDK" */,
+				C816FA062CB82F0F001A3081 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C8175EB42CB6765C002D3F34 /* Products */;
@@ -395,6 +402,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		C816FA062CB82F0F001A3081 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios-spm";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.0;
+			};
+		};
 		C8DF60F92CB7BCE300473389 /* XCRemoteSwiftPackageReference "wishkit-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/wishkit/wishkit-ios";
@@ -430,6 +445,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C816FA072CB82F0F001A3081 /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C816FA062CB82F0F001A3081 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCat;
+		};
+		C816FA092CB82F0F001A3081 /* RevenueCatUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C816FA062CB82F0F001A3081 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCatUI;
+		};
 		C8DF60FA2CB7BCE300473389 /* WishKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C8DF60F92CB7BCE300473389 /* XCRemoteSwiftPackageReference "wishkit-ios" */;

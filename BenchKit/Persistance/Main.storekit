@@ -28,13 +28,28 @@
       "productID" : "com.kubamilcarz.benchkit.lifetime",
       "referenceName" : "BenchKit+ Lifetime",
       "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "19.99",
+      "familyShareable" : false,
+      "internalID" : "6736760332",
+      "localizations" : [
+        {
+          "description" : "BenchKit+ lifetime purchase",
+          "displayName" : "BenchKit+ Lifetime",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.kubamilcarz.benchkit.sale.lifetime",
+      "referenceName" : "BenchKit+ Lifetime -50%",
+      "type" : "NonConsumable"
     }
   ],
   "settings" : {
     "_applicationInternalID" : "6736754251",
     "_developerTeamID" : "7AGNJTPT6V",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 750250430.69503403,
+    "_lastSynchronizedDate" : 750252144.46603405,
     "_locale" : "en_US",
     "_storefront" : "USA",
     "_storeKitErrors" : [
@@ -128,12 +143,40 @@
           "codeOffers" : [
 
           ],
+          "displayPrice" : "1.99",
+          "familyShareable" : false,
+          "groupNumber" : 4,
+          "internalID" : "6736760176",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "BenchKit+ monthly subscription",
+              "displayName" : "BenchKit+ Monthly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.kubamilcarz.benchkit.sale.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "BenchKit+ Monthly -50%",
+          "subscriptionGroupID" : "21556957",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
           "displayPrice" : "24.99",
           "familyShareable" : false,
           "groupNumber" : 1,
           "internalID" : "6736754345",
           "introductoryOffer" : {
-            "internalID" : "38EEA4BE",
+            "internalID" : "598843E2",
             "numberOfPeriods" : 1,
             "paymentMode" : "free",
             "subscriptionPeriod" : "P1W"
@@ -148,6 +191,34 @@
           "productID" : "com.kubamilcarz.benchkit.annual",
           "recurringSubscriptionPeriod" : "P1Y",
           "referenceName" : "BenchKit+ Yearly",
+          "subscriptionGroupID" : "21556957",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "12.99",
+          "familyShareable" : false,
+          "groupNumber" : 3,
+          "internalID" : "6736760407",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "BenchKit+ yearly subscription",
+              "displayName" : "BenchKit+ Yearly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.kubamilcarz.benchkit.sale.annual",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "BenchKit+ Yearly -50%",
           "subscriptionGroupID" : "21556957",
           "type" : "RecurringSubscription",
           "winbackOffers" : [

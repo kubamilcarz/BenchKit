@@ -10,6 +10,7 @@ import LocalAuthentication
 import KubaComponents
 import TelemetryClient
 import WishKit
+import RevenueCat
 
 @main
 struct BenchKitApp: App {
@@ -28,6 +29,10 @@ struct BenchKitApp: App {
     @State private var appIsLocked = false
     
     init() {
+        // RevenueCat
+        Purchases.configure(withAPIKey: "appl_mZbRPiEJmjcuWZWKOknphyAQAMS")
+        Purchases.logLevel = .verbose
+        
         // TelemetryDeck
         let configuration = TelemetryManagerConfiguration(appID: "549FD258-998B-4E95-BD4A-2F8458B89C61")
         TelemetryDeck.initialize(config: configuration)

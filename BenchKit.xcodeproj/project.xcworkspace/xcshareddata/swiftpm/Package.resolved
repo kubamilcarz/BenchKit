@@ -1,5 +1,5 @@
 {
-  "originHash" : "48d8e9a9a40528a3d6c8d36f4ae1df6a6e4191ffdfc870573972bd9c671a3043",
+  "originHash" : "683fcddea37b9674bd379ad182355efb806037ed9e012602ac681d9bf898fb40",
   "pins" : [
     {
       "identity" : "kubacomponents",
@@ -8,6 +8,15 @@
       "state" : {
         "branch" : "main",
         "revision" : "9a5539f105a8b5b976db701e1801ee166fe6aea9"
+      }
+    },
+    {
+      "identity" : "purchases-ios-spm",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/RevenueCat/purchases-ios-spm.git",
+      "state" : {
+        "revision" : "385b5b23b381f45bceed40548ac9ba95ef7107a7",
+        "version" : "5.6.0"
       }
     },
     {

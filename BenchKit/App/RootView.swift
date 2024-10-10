@@ -23,9 +23,7 @@ struct RootView: View {
     @AppStorage(Defaults.hapticsOn) var hapticsOn = true
     
     var content: some View {
-        ScrollView {
-            
-        }
+        AppView()
     }
     
     var body: some View {
@@ -48,6 +46,13 @@ struct RootView: View {
                 .frame(width: 500, height: 700)
                 #endif
             }
+//            .fullScreenCover(isPresented: $isShowingOnboarding) {
+//                TelemetryDeck.signal(Analytics.finishedOnboarding.id)
+//                
+//                requestReview()
+//            } content: {
+//                OnboardingView()
+//            }
             .task {
                 await purchaseManager.updatePurchasedProducts()
                 
@@ -58,13 +63,6 @@ struct RootView: View {
                         }
                     }
                 }
-            }
-            .fullScreenCover(isPresented: $isShowingOnboarding) {
-                TelemetryDeck.signal(Analytics.finishedOnboarding.id)
-                
-                requestReview()
-            } content: {
-                OnboardingView()
             }
             .onAppear(perform: configure)
             .isNavigationStack()

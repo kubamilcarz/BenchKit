@@ -56,14 +56,14 @@ struct WhatsNewSheet: View {
                 .padding(.vertical, 30)
             }
             .frame(maxWidth: .infinity)
-            .background(LinearGradient(colors: [.accent.opacity(0.1), .accent.opacity(0.5)], startPoint: .bottom, endPoint: .top)
+            .background(LinearGradient(colors: [.accent.opacity(0.1), .accent.opacity(0.5)], startPoint: .topLeading, endPoint: .bottomTrailing)
                 .ignoresSafeArea())
             .safeAreaInset(edge: .bottom) {
                 Button {
                     dismiss()
                 } label: {
                     Label("Continue", systemImage: "arrow.forward.circle.fill")
-                        .padding()
+                        .padding(10)
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                 }

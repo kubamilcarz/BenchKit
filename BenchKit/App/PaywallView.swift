@@ -1,5 +1,5 @@
 //
-//  Paywall.swift
+//  PaywallView.swift
 //  BenchKit
 //
 //  Created by Kuba on 10/10/24.
@@ -277,7 +277,7 @@ struct PaywallView: View {
                 if purchaseManager.hasUnlockedPlus {
                     Text("Manage Subscription")
                 } else {
-                    Text(chosenProduct == .annual || chosenProduct == .annualSale ? "Try For Free" : "Get Escape+")
+                    Text(chosenProduct == .annual ? "Try For Free" : "Get BenchKit+")
                 }
             }
             .frame(maxWidth: .infinity)
