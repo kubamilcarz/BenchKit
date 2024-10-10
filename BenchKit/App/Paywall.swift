@@ -45,9 +45,9 @@ struct PaywallView: View {
     }
     
     enum PlusProduct: String {
-        case monthly = "com.kubamilcarz.benchkit.plus.monthly", monthlySale = "com.kubamilcarz.benchkit.plus.monthly.sale"
-        case annual = "com.kubamilcarz.benchkit.plus.annual", annualSale = "com.kubamilcarz.benchkit.plus.annual.sale"
-        case lifetime = "com.kubamilcarz.benchkit.plus.lifetime", lifetimeSale = "com.kubamilcarz.benchkit.plus.lifetime.sale"
+        case monthly = "com.kubamilcarz.benchkit.monthly", monthlySale = "com.kubamilcarz.benchkit.monthly.sale"
+        case annual = "com.kubamilcarz.benchkit.annual", annualSale = "com.kubamilcarz.benchkit.annual.sale"
+        case lifetime = "com.kubamilcarz.benchkit.lifetime", lifetimeSale = "com.kubamilcarz.benchkit.lifetime.sale"
     }
     
     var premiumFeatures: [PremiumFeatures] = [
@@ -465,7 +465,7 @@ struct PaywallView: View {
             .frame(maxWidth: .infinity)
             
             VStack(spacing: 15) {
-                ForEach(opinions.indices) { index in
+                ForEach(opinions.indices, id: \.self) { index in
                     VStack(alignment: .leading, spacing: 5) {
                         HStack {
                             Text(opinions[index].title)

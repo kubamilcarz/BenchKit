@@ -1,0 +1,164 @@
+{
+  "appPolicies" : {
+    "eula" : "",
+    "policies" : [
+      {
+        "locale" : "en_US",
+        "policyText" : "",
+        "policyURL" : ""
+      }
+    ]
+  },
+  "identifier" : "2DA7B350",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "39.99",
+      "familyShareable" : false,
+      "internalID" : "6736754487",
+      "localizations" : [
+        {
+          "description" : "BenchKit+ lifetime purchase",
+          "displayName" : "BenchKit+ Lifetime",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.kubamilcarz.benchkit.lifetime",
+      "referenceName" : "BenchKit+ Lifetime",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "6736754251",
+    "_developerTeamID" : "7AGNJTPT6V",
+    "_failTransactionsEnabled" : false,
+    "_lastSynchronizedDate" : 750250430.69503403,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Store Sync"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Subscription Status"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Transaction"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Manage Subscriptions Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Refund Request Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Offer Code Redeem Sheet"
+      }
+    ]
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "21556957",
+      "localizations" : [
+
+      ],
+      "name" : "BenchKitMain",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "4.99",
+          "familyShareable" : false,
+          "groupNumber" : 2,
+          "internalID" : "6736754353",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "BenchKit+ monthly subscription",
+              "displayName" : "BenchKit+ Monthly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.kubamilcarz.benchkit.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "BenchKit+ Monthly",
+          "subscriptionGroupID" : "21556957",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "24.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "6736754345",
+          "introductoryOffer" : {
+            "internalID" : "38EEA4BE",
+            "numberOfPeriods" : 1,
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P1W"
+          },
+          "localizations" : [
+            {
+              "description" : "BenchKit+ yearly subscription",
+              "displayName" : "BenchKit+ Yearly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.kubamilcarz.benchkit.annual",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "BenchKit+ Yearly",
+          "subscriptionGroupID" : "21556957",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}
