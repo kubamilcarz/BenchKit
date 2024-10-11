@@ -29,6 +29,11 @@ extension WorkoutExercise {
         set { weight = newValue }
     }
     
+    var exerciseMuscleGroup: MuscleGroup {
+        get { MuscleGroup(rawValue: muscleGroup ?? "unknown") ?? .unknown }
+        set { muscleGroup = newValue.rawValue }
+    }
+    
     var exerciseWeightLocale: Measurement<UnitMass>? {
         get {
             guard weight > 0 else { return nil }

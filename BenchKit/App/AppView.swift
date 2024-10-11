@@ -11,6 +11,8 @@ import KubaComponents
 struct AppView: View {
     @EnvironmentObject var dataModel: DataModel
     
+    @State private var unscheduledCount = 0
+    
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             VStack(spacing: 0) {
@@ -21,6 +23,29 @@ struct AppView: View {
                         WeekStatsView()
                         
                         VStack(spacing: 15) {
+                            if unscheduledCount > 0 {
+                                NavigationLink {
+                                    UnscheduledWorkoutsList()
+                                        .navigationTitle("Unscheduled Workouts")
+                                        .navigationBarTitleDisplayMode(.inline)
+                                        .environmentObject(dataModel)
+                                } label: {
+                                    HStack {
+                                        Label("You have \(unscheduledCount) unscheduled workouts.", systemImage: "exclamationmark.triangle.fill")
+                                            .symbolRenderingMode(.hierarchical)
+                                            .lineLimit(1)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                        
+                                        Image(systemName: "chevron.forward")
+                                            .foregroundStyle(.secondary)
+                                    }
+                                    .padding()
+                                    .background(.background)
+                                    .clipShape(.rect(cornerRadius: 12))
+                                }
+                                .buttonStyle(.plain)
+                            }
+                            
                             NavigationLink {
                                 WorkoutDetailView()
                             } label: {
@@ -65,6 +90,14 @@ struct AppView: View {
                     dataModel.isShowingSettings = true
                 }
             }
+        }
+        .onChange(of: dataModel.isShowingNewWorkout) { _, _ in
+            Task {
+                unscheduledCount = await dataModel.getCountOfUnscheduledWorkouts()
+            }
+        }
+        .task {
+            unscheduledCount = await dataModel.getCountOfUnscheduledWorkouts()
         }
     }
     

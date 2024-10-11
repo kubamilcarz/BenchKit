@@ -24,5 +24,40 @@ class DataModel: ObservableObject {
     @Published var isShowingStats = false
     
     @Published var isShowingNewWorkout = false
+
+    func getCountOfUnscheduledWorkouts() async -> Int {
+        await context.perform { [weak self] in
+            let fetchRequest = Workout.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "dateScheduled == nil AND isCompleted == false")
+            
+            do {
+                let count = try self?.context.count(for: fetchRequest) ?? 0
+                return count
+            } catch {
+                print("Failed to count unscheduled workouts: \(error)")
+                return 0
+            }
+        }
+    }
+    
+    
+    func getUnscheduledWorkouts() async -> [Workout] {
+        await context.perform { [weak self] in
+            let fetchRequest = Workout.fetchRequest()
+            fetchRequest.sortDescriptors = [
+                NSSortDescriptor(keyPath: \Workout.dateCompleted, ascending: false),
+                NSSortDescriptor(keyPath: \Workout.title, ascending: true)
+            ]
+            fetchRequest.predicate = NSPredicate(format: "dateScheduled == nil AND isCompleted == false")
+            
+            do {
+                let count = try self?.context.fetch(fetchRequest) ?? []
+                return count
+            } catch {
+                print("Failed to fetch unscheduled workouts: \(error)")
+                return []
+            }
+        }
+    }
     
 }

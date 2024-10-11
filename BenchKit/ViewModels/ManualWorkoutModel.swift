@@ -45,6 +45,7 @@ class ManualWorkoutModel: ObservableObject {
             let newWorkout = Workout(context: context)
             newWorkout.id = UUID()
             self.workout = newWorkout
+            self.workout?.isCompleted = false
         }
         
         makeEmptySet(order: 1)
@@ -58,24 +59,41 @@ class ManualWorkoutModel: ObservableObject {
         let newSet = WorkoutSet(context: context)
         newSet.id = UUID()
         newSet.setOrder = order
+        newSet.workout = workout
         
         setsExercises[newSet] = []
     }
     
     func addEmptyExercise(toSet set: WorkoutSet) {
+        guard let se = setsExercises[set] else { return }
+        
         let newExercise = WorkoutExercise(context: context)
         newExercise.id = UUID()
         newExercise.set = set
         newExercise.exerciseName = ""
-        newExercise.exerciseOrder = setsExercises[set]?.map(\.exerciseOrder).sorted { $0 > $1 }.max() ?? 0 + 1
-        newExercise.exerciseReps = setsExercises[set]?.sorted { $0.exerciseOrder > $1.exerciseOrder }.max()?.exerciseReps ?? 0
-        newExercise.exerciseWeightNumber = setsExercises[set]?.sorted { $0.exerciseOrder > $1.exerciseOrder }.max()?.exerciseWeightNumber ?? 0
+        
+        newExercise.exerciseOrder = (se.map(\.exerciseOrder).max() ?? 0) + 1
+        newExercise.exerciseReps = se.map(\.exerciseReps).max() ?? 0
+        newExercise.exerciseWeightNumber = se.sorted { $0.exerciseOrder < $1.exerciseOrder }.max()?.exerciseWeightNumber ?? 0
         
         setsExercises[set]?.append(newExercise)
     }
     
     
-    func save() {
+    func save(completion: @escaping () -> Void) {
+        guard movementPattern != .unknown || duration > 0 || difficulty != .none || title.count > 2 else { return }
         
+        workout?.workoutTitle = title
+        workout?.workoutNotes = notes
+        workout?.workoutMovement = movementPattern
+        workout?.workoutDuration = duration
+        workout?.workoutDifficulty = difficulty
+        workout?.dateScheduled = isScheduled ? scheduleDate : nil
+        
+        try? context.save()
+        
+        // TODO: Save as blueprint too
+        
+        completion()
     }
 }

@@ -10,6 +10,7 @@ import SwiftUI
 
 struct AddWorkoutSheet: View {
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var dataModel: DataModel
     
     @SceneStorage(Defaults.showingGallery) var showingGallery = true
     @State private var search = ""
@@ -22,6 +23,7 @@ struct AddWorkoutSheet: View {
                 WorkoutLibraryView()
             }
         }
+        .environmentObject(dataModel)
         .background(.regularMaterial)
         .safeAreaInset(edge: .top) {
             HStack {
