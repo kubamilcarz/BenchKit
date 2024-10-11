@@ -1,6 +1,15 @@
 {
-  "originHash" : "683fcddea37b9674bd379ad182355efb806037ed9e012602ac681d9bf898fb40",
+  "originHash" : "6969e39e21ab7ed627efd252c346d99b40cf0d169c062752d93835c45dc10bfd",
   "pins" : [
+    {
+      "identity" : "calendarview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Mijick/CalendarView.git",
+      "state" : {
+        "revision" : "b347587ba39a023b61881158872db9d01a90a9a6",
+        "version" : "1.0.0"
+      }
+    },
     {
       "identity" : "kubacomponents",
       "kind" : "remoteSourceControl",

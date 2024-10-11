@@ -5,7 +5,11 @@
 //  Created by Kuba on 10/10/24.
 //
 
-enum MuscleGroup: String, Codable, CaseIterable {
+import SwiftUI
+
+enum MuscleGroup: String, Identifiable, Codable, CaseIterable {
+    var id: UUID { UUID() }
+    
     case chest, back, arms, shoulders, triceps, biceps, legs, abs, unknown
     
     var title: String {
@@ -28,6 +32,29 @@ enum MuscleGroup: String, Codable, CaseIterable {
             return String(localized: "Abs")
         case .unknown:
             return String(localized: "Unknown")
+        }
+    }
+    
+    var color: Color {
+        switch self {
+        case .chest:
+            return .green
+        case .back:
+            return .blue
+        case .arms:
+            return .red
+        case .shoulders:
+            return .yellow
+        case .triceps:
+            return .purple
+        case .biceps:
+            return .indigo
+        case .legs:
+            return .brown
+        case .abs:
+            return .orange
+        case .unknown:
+            return .gray
         }
     }
 }

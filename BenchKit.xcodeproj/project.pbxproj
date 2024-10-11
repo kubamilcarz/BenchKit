@@ -15,6 +15,7 @@
 		C8DF61012CB7BCFB00473389 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = C8DF61002CB7BCFB00473389 /* Algorithms */; };
 		C8DF61042CB7BD2F00473389 /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; productRef = C8DF61032CB7BD2F00473389 /* TelemetryClient */; };
 		C8DF61062CB7BD2F00473389 /* TelemetryDeck in Frameworks */ = {isa = PBXBuildFile; productRef = C8DF61052CB7BD2F00473389 /* TelemetryDeck */; };
+		C8EE1B8E2CB96A9600551421 /* MijickCalendarView in Frameworks */ = {isa = PBXBuildFile; productRef = C8EE1B8D2CB96A9600551421 /* MijickCalendarView */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 				C8DF60FB2CB7BCE300473389 /* WishKit in Frameworks */,
 				C816FA0A2CB82F0F001A3081 /* RevenueCatUI in Frameworks */,
 				C8DF60F82CB7BCC400473389 /* StoreKit.framework in Frameworks */,
+				C8EE1B8E2CB96A9600551421 /* MijickCalendarView in Frameworks */,
 				C8DF60FE2CB7BCEE00473389 /* KubaComponents in Frameworks */,
 				C8DF61062CB7BD2F00473389 /* TelemetryDeck in Frameworks */,
 			);
@@ -114,6 +116,7 @@
 				C8DF61052CB7BD2F00473389 /* TelemetryDeck */,
 				C816FA072CB82F0F001A3081 /* RevenueCat */,
 				C816FA092CB82F0F001A3081 /* RevenueCatUI */,
+				C8EE1B8D2CB96A9600551421 /* MijickCalendarView */,
 			);
 			productName = BenchKit;
 			productReference = C8175EB32CB6765C002D3F34 /* BenchKit.app */;
@@ -149,6 +152,7 @@
 				C8DF60FF2CB7BCFB00473389 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				C8DF61022CB7BD2F00473389 /* XCRemoteSwiftPackageReference "SwiftSDK" */,
 				C816FA062CB82F0F001A3081 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
+				C8EE1B8C2CB96A9600551421 /* XCRemoteSwiftPackageReference "CalendarView" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C8175EB42CB6765C002D3F34 /* Products */;
@@ -321,7 +325,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -360,7 +364,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -442,6 +446,14 @@
 				minimumVersion = 2.4.1;
 			};
 		};
+		C8EE1B8C2CB96A9600551421 /* XCRemoteSwiftPackageReference "CalendarView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Mijick/CalendarView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -479,6 +491,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C8DF61022CB7BD2F00473389 /* XCRemoteSwiftPackageReference "SwiftSDK" */;
 			productName = TelemetryDeck;
+		};
+		C8EE1B8D2CB96A9600551421 /* MijickCalendarView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C8EE1B8C2CB96A9600551421 /* XCRemoteSwiftPackageReference "CalendarView" */;
+			productName = MijickCalendarView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

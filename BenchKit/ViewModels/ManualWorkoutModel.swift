@@ -44,8 +44,10 @@ class ManualWorkoutModel: ObservableObject {
         if workout == nil {
             let newWorkout = Workout(context: context)
             newWorkout.id = UUID()
+            newWorkout.isCompleted = false
+            newWorkout.dateCompleted = nil
+            newWorkout.dateScheduled = nil
             self.workout = newWorkout
-            self.workout?.isCompleted = false
         }
         
         makeEmptySet(order: 1)

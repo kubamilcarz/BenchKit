@@ -10,9 +10,7 @@ import KubaComponents
 
 struct AppView: View {
     @EnvironmentObject var dataModel: DataModel
-    
-    @State private var unscheduledCount = 0
-    
+        
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             VStack(spacing: 0) {
@@ -22,40 +20,7 @@ struct AppView: View {
                     VStack(spacing: 30) {
                         WeekStatsView()
                         
-                        VStack(spacing: 15) {
-                            if unscheduledCount > 0 {
-                                NavigationLink {
-                                    UnscheduledWorkoutsList()
-                                        .navigationTitle("Unscheduled Workouts")
-                                        .navigationBarTitleDisplayMode(.inline)
-                                        .environmentObject(dataModel)
-                                } label: {
-                                    HStack {
-                                        Label("You have \(unscheduledCount) unscheduled workouts.", systemImage: "exclamationmark.triangle.fill")
-                                            .symbolRenderingMode(.hierarchical)
-                                            .lineLimit(1)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                        
-                                        Image(systemName: "chevron.forward")
-                                            .foregroundStyle(.secondary)
-                                    }
-                                    .padding()
-                                    .background(.background)
-                                    .clipShape(.rect(cornerRadius: 12))
-                                }
-                                .buttonStyle(.plain)
-                            }
-                            
-                            NavigationLink {
-                                WorkoutDetailView()
-                            } label: {
-                                workout
-                            }
-                            .buttonStyle(.plain)
-                            
-                            workout
-                            workout
-                        }
+                        WeekWorkoutList()
                     }
                     .padding()
                 }
@@ -90,90 +55,6 @@ struct AppView: View {
                     dataModel.isShowingSettings = true
                 }
             }
-        }
-        .onChange(of: dataModel.isShowingNewWorkout) { _, _ in
-            Task {
-                unscheduledCount = await dataModel.getCountOfUnscheduledWorkouts()
-            }
-        }
-        .task {
-            unscheduledCount = await dataModel.getCountOfUnscheduledWorkouts()
-        }
-    }
-    
-    
-    private var workout: some View {
-        VStack(alignment: .leading, spacing: 15) {
-            HStack {
-                label("Oct 3, 2024", systemImage: "checkmark.circle.fill")
-                    .font(.headline)
-                    .tint(.green)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                Spacer()
-                
-                HStack(spacing: 0) {
-                    Color.yellow
-                    Color.blue
-                    Color.blue
-                    Color.green
-                    Color.red
-                    Color.red
-                    Color.green
-                    Color.blue
-                    Color.green
-                    Color.blue
-                    Color.blue
-                    Color.yellow
-                }
-                .frame(width: 100, height: 7)
-                .clipShape(.capsule)
-                
-                Image(systemName: "chevron.forward")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-            }
-            .padding([.top, .horizontal])
-           
-            Divider()
-                
-            Grid(alignment: .center, horizontalSpacing: 10, verticalSpacing: 10) {
-                GridRow {
-                    label("**43** min", systemImage: "clock.fill")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    label("**6** difficulty", systemImage: "chart.bar.fill")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                
-                GridRow {
-                    label("**Chest**", systemImage: "dumbbell.fill")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    label("**3** sets", systemImage: "repeat")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                
-                GridRow {
-                    label("**313** kcal", systemImage: "flame.fill")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    label("**7-12** reps", systemImage: "arrow.circlepath")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-            }
-            .tint(.secondary)
-            .font(.subheadline)
-            .padding([.bottom, .horizontal])
-        }
-        .background(.background)
-        .clipShape(.rect(cornerRadius: 12))
-    }
-    
-    
-    private func label(_ title: LocalizedStringKey, systemImage: String) -> some View {
-        HStack(spacing: 5) {
-            Image(systemName: systemImage)
-            
-            Text(title)
-                .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 }

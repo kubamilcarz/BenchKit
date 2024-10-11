@@ -37,7 +37,8 @@ class PurchaseManager: ObservableObject {
     @Published private(set) var purchasedProductIDs = Set<String>()
     
     var hasUnlockedPlus: Bool {
-        return !self.purchasedProductIDs.isEmpty
+        return true
+//        return !self.purchasedProductIDs.isEmpty
     }
     
     init() {
