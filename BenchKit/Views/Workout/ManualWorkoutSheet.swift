@@ -82,6 +82,21 @@ struct ManualWorkoutSheet: View {
                         ForEach(exercises, id: \.self) { exercise in
                             exerciseLabel(exercise: exercise)
                         }
+                        .onDelete { indexSet in
+                            guard let setExercises = model.setsExercises[set] else { return }
+
+                            // Remove the exercises at the specified indices
+                            var updatedExercises = setExercises
+                            updatedExercises.remove(atOffsets: indexSet)
+                            
+                            // Update the `exerciseOrder` for the remaining exercises
+                            for (index, exercise) in updatedExercises.enumerated() {
+                                updatedExercises[index].exerciseOrder = index + 1 // Start from 1
+                            }
+                            
+                            // Update the set in the dictionary
+                            model.setsExercises[set] = updatedExercises
+                        }
                         .onMove { sourceIndices, destinationIndex in
                             guard let setExercises = model.setsExercises[set] else { return }
                             
@@ -103,7 +118,25 @@ struct ManualWorkoutSheet: View {
             }
             .onChange(of: model.focusedSet) { _, newValue in
                 if model.setsExercises.keys.first(where: { $0.setOrder == newValue }) == nil {
-                    model.makeEmptySet(order: newValue)
+                    withAnimation {
+                        model.duplicatePreviousSet(andSetOrder: newValue)
+                    }
+                }
+            }
+            .onChange(of: model.repeatSameSet) { _, newValue in
+                if newValue {
+                    withAnimation {
+                        model.focusedSet = 1
+                    }
+                    
+                    if let set = model.setsExercises.keys.first(where: { $0.setOrder == model.focusedSet }) {
+                        
+                        for ss in model.setsExercises.keys.filter({ $0 != set }) {
+                            if let index = model.setsExercises.index(forKey: ss) {
+                                model.setsExercises.remove(at: index)
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -191,94 +224,102 @@ struct ManualWorkoutSheet: View {
     
     @ViewBuilder
     private func exerciseLabel(exercise: WorkoutExercise) -> some View {
-        if let set = model.setsExercises.keys.first(where: { $0.setOrder == model.focusedSet }), let exercises = model.setsExercises[set]?.sorted(by: { $0.exerciseOrder < $1.exerciseOrder }) {
-            VStack(alignment: .leading) {
-                HStack {
-                    TextField("Name", text: Binding(get: {
-                        exercise.exerciseName
+        if let set = model.setsExercises.keys.first(where: { $0.setOrder == model.focusedSet }), let _ = model.setsExercises[set]?.sorted(by: { $0.exerciseOrder < $1.exerciseOrder }) {
+            VStack(alignment: .leading, spacing: 0) {
+                TextField("Name", text: Binding(get: {
+                    exercise.exerciseName
+                }, set: { newValue in
+                    if let exercises = model.setsExercises[set],
+                       let index = exercises.firstIndex(where: { $0.id == exercise.id }) {
+                        
+                        // Update the exerciseName of the specific exercise
+                        exercises[index].exerciseName = newValue
+                        
+                        // Update the array in the dictionary
+                        model.setsExercises[set] = exercises
+                    }
+                }))
+                
+                Divider().padding(.vertical, 5)
+                
+                Picker("Muscle Group", selection: Binding(get: {
+                    exercise.exerciseMuscleGroup
+                }, set: { newValue in
+                    if let exercises = model.setsExercises[set],
+                       let index = exercises.firstIndex(where: { $0.id == exercise.id }) {
+                        
+                        // Update the exerciseName of the specific exercise
+                        exercises[index].exerciseMuscleGroup = newValue
+                        
+                        // Update the array in the dictionary
+                        model.setsExercises[set] = exercises
+                    }
+                })) {
+                    ForEach(MuscleGroup.allCases, id: \.self) {
+                        Text($0 == .unknown ? "Muscle" : $0.title).tag($0)
+                    }
+                }
+                .pickerStyle(.menu)
+                
+                Divider().padding(.vertical, 5)
+                
+                HStack(spacing: 5) {
+                    Label("Weight", systemImage: "scalemass.fill")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    TextField("Weight", value: Binding(get: {
+                        exercise.exerciseWeightLocale?.value ?? 0
                     }, set: { newValue in
                         if let exercises = model.setsExercises[set],
                            let index = exercises.firstIndex(where: { $0.id == exercise.id }) {
-                            
-                            // Update the exerciseName of the specific exercise
-                            exercises[index].exerciseName = newValue
-                            
+                            if Locale.current.measurementSystem != .metric {
+                                exercises[index].exerciseWeightLocale = Measurement(value: Double(newValue), unit: .pounds)
+                            } else {
+                                exercises[index].exerciseWeightNumber = Double(newValue)
+                            }
                             // Update the array in the dictionary
                             model.setsExercises[set] = exercises
                         }
-                    }))
+                    }), formatter: formatter)
                     .textFieldStyle(.roundedBorder)
+                    .frame(width: 90)
                     
-                    Picker("Muscle Group", selection: Binding(get: {
-                        exercise.exerciseMuscleGroup
+                    Text(Locale.current.measurementSystem == .metric ? "kg" : "lbs")
+                        .font(.headline)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Divider().padding(.vertical, 5)
+                
+                HStack(spacing: 5) {
+                    Label("Reps", systemImage: "arrow.circlepath")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    TextField("Reps", value: Binding(get: {
+                        Double(exercise.exerciseReps)
                     }, set: { newValue in
                         if let exercises = model.setsExercises[set],
                            let index = exercises.firstIndex(where: { $0.id == exercise.id }) {
                             
                             // Update the exerciseName of the specific exercise
-                            exercises[index].exerciseMuscleGroup = newValue
+                            exercises[index].exerciseReps = Int(newValue)
                             
                             // Update the array in the dictionary
                             model.setsExercises[set] = exercises
                         }
-                    })) {
-                        ForEach(MuscleGroup.allCases, id: \.self) {
-                            Text($0 == .unknown ? "Muscle" : $0.title).tag($0)
-                        }
-                    }
-                    .pickerStyle(.menu)
-                    .labelsHidden()
+                    }), format: .number)
+                    .textFieldStyle(.roundedBorder)
+                    .frame(width: 90)
                 }
-                HStack(spacing: 15) {
-                    HStack(spacing: 5) {
-                        TextField("Weight", value: Binding(get: {
-                            exercise.exerciseWeightLocale?.value ?? 0
-                        }, set: { newValue in
-                            if let exercises = model.setsExercises[set],
-                               let index = exercises.firstIndex(where: { $0.id == exercise.id }) {
-                                if Locale.current.measurementSystem != .metric {
-                                    exercises[index].exerciseWeightLocale = Measurement(value: Double(newValue), unit: .pounds)
-                                } else {
-                                    exercises[index].exerciseWeightNumber = Double(newValue)
-                                }
-                                // Update the array in the dictionary
-                                model.setsExercises[set] = exercises
-                            }
-                        }), formatter: formatter)
-                        .textFieldStyle(.roundedBorder)
-                        .frame(width: 90)
-                        
-                        Text(Locale.current.measurementSystem == .metric ? "kg" : "lbs")
-                            .font(.headline)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    Spacer(minLength: 0)
-                    
-                    HStack(spacing: 5) {
-                        TextField("Reps", value: Binding(get: {
-                            Double(exercise.exerciseReps)
-                        }, set: { newValue in
-                            if let exercises = model.setsExercises[set],
-                               let index = exercises.firstIndex(where: { $0.id == exercise.id }) {
-                                
-                                // Update the exerciseName of the specific exercise
-                                exercises[index].exerciseReps = Int(newValue)
-                                
-                                // Update the array in the dictionary
-                                model.setsExercises[set] = exercises
-                            }
-                        }), format: .number)
-                        .textFieldStyle(.roundedBorder)
-                        .frame(width: 90)
-                        
-                        Text("reps")
-                            .font(.headline)
-                    }
-                    .keyboardType(.numberPad)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                }
+                .keyboardType(.numberPad)
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
+            .listRowBackground(EmptyView())
+            .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+            .padding()
+            .background(.background.secondary, in: .rect(cornerRadius: 12))
+            .listRowSeparator(.hidden)
+            .padding(.bottom, 15)
         }
     }
 }

@@ -25,5 +25,5 @@ extension WorkoutSet {
     }
     
     
-    var workoutExercises: [WorkoutExercise] { Array(exercises as? Set<WorkoutExercise> ?? []).sorted { $0.order > $1.order } }
+    var setExercises: [WorkoutExercise] { Array(exercises as? Set<WorkoutExercise> ?? []).sorted { $0.order > $1.order } }
 }

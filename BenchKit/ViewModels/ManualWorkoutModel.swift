@@ -64,6 +64,29 @@ class ManualWorkoutModel: ObservableObject {
         setsExercises[newSet] = []
     }
     
+    func duplicatePreviousSet(andSetOrder order: Int) {
+        guard let oldSet = setsExercises.keys.first(where: { $0.setOrder == focusedSet }) ?? setsExercises.keys.first else { return }
+        
+        let newSet = WorkoutSet(context: context)
+        newSet.id = UUID()
+        newSet.setOrder = order
+        newSet.workout = workout
+        newSet.setBreakLength = oldSet.setBreakLength
+       
+        for exercise in oldSet.setExercises {
+            let newExercise = WorkoutExercise(context: context)
+            newExercise.id = UUID()
+            newExercise.exerciseOrder = exercise.exerciseOrder
+            newExercise.exerciseReps = exercise.exerciseReps
+            newExercise.exerciseName = exercise.exerciseName
+            newExercise.exerciseWeightNumber = exercise.exerciseWeightNumber
+            newExercise.exerciseMuscleGroup = exercise.exerciseMuscleGroup
+            newExercise.set = newSet
+        }
+        
+        setsExercises[newSet] = []
+    }
+    
     func addEmptyExercise(toSet set: WorkoutSet) {
         guard let se = setsExercises[set] else { return }
         
@@ -91,6 +114,13 @@ class ManualWorkoutModel: ObservableObject {
         workout?.dateScheduled = isScheduled ? scheduleDate : nil
         
         try? context.save()
+        
+        // when repeating turned off duplicate sets
+        if repeatSameSet {
+            for i in 1...setCount {
+                duplicatePreviousSet(andSetOrder: i+1)
+            }
+        }
         
         // TODO: Save as blueprint too
         
