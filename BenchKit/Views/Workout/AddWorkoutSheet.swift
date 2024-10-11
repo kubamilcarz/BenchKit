@@ -35,9 +35,23 @@ struct AddWorkoutSheet: View {
                 .pickerStyle(.segmented)
                 .labelsHidden()
             }
-            .padding()
+            .padding(.horizontal)
+            .padding(.vertical, 10)
             .frame(maxWidth: .infinity)
             .background(.ultraThickMaterial)
+        }
+        .safeAreaInset(edge: .bottom) {
+            NavigationLink {
+                ManualWorkoutSheet(mode: .new)
+            } label: {
+                Label("Manual", systemImage: "pencil")
+                    .padding(10)
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(BenchKitPrimaryButton())
+            .padding(.horizontal)
+            .padding(.top)
+            .background(.regularMaterial, ignoresSafeAreaEdges: .bottom)
         }
         .navigationTitle("Add Workout")
         .navigationBarTitleDisplayMode(.inline)

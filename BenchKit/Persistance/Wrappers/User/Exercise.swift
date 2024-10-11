@@ -60,3 +60,10 @@ extension WorkoutExercise {
         set { order = Int64(newValue) }
     }
 }
+
+
+extension WorkoutExercise: Comparable {
+    public static func < (lhs: WorkoutExercise, rhs: WorkoutExercise) -> Bool {
+        lhs.exerciseOrder < rhs.exerciseOrder
+    }
+}

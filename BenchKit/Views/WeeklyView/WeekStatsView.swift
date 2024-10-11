@@ -41,12 +41,13 @@ struct WeekStatsView: View {
                         dataModel.isShowingGoalsSheet = true
                     }
                     .controlSize(.small)
-                    .background(.secondary, in: .capsule)
-                    .buttonStyle(.bordered)
+                    .buttonStyle(.borderedProminent)
+                    .tint(Color.accentColor.secondary)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Circle().fill(.ultraThinMaterial).frame(height: 80)
+                GoalPie
+                    .frame(width: 80)
             }
             .padding()
         }
@@ -56,8 +57,28 @@ struct WeekStatsView: View {
                 .presentationDetents([.medium])
         }
     }
+    
+    
+    private var GoalPie: some View {
+        ZStack {
+            PieSlice(startAngle: .degrees(0), endAngle: .degrees(360))
+                .fill(.background.secondary)
+            
+            PieSlice(startAngle: .degrees(0), endAngle: .degrees(120))
+                .fill(.accent)
+                .rotationEffect(.degrees(-90))
+            
+            Circle().fill(.background).padding(8)
+            
+            Image(systemName: "checkmark.circle.fill")
+                .font(.title3.bold())
+                .symbolRenderingMode(.hierarchical)
+                .foregroundStyle(.accent)
+        }
+    }
 }
 
 #Preview {
     WeekStatsView()
+        .environmentObject(DataModel.shared)
 }

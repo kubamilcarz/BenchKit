@@ -14,31 +14,20 @@ struct AppView: View {
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             VStack(spacing: 0) {
-                ZStack {
-                    HStack {
-                        Button { } label: {
-                            Image(systemName: "chevron.backward")
-                        }
-                        Spacer()
-                        Button { } label: {
-                            Image(systemName: "chevron.forward")
-                        }
-                    }
-                    
-                    DatePicker("Week", selection: .constant(.now), displayedComponents: .date)
-                        .labelsHidden()
-                }
-                .padding(.horizontal, 15)
-                .padding(.vertical, 5)
-                
-                Divider()
+                WeeklyViewHeader()
                 
                 ScrollView {
                     VStack(spacing: 30) {
                         WeekStatsView()
                         
                         VStack(spacing: 15) {
-                            workout
+                            NavigationLink {
+                                WorkoutDetailView()
+                            } label: {
+                                workout
+                            }
+                            .buttonStyle(.plain)
+                            
                             workout
                             workout
                         }
@@ -63,7 +52,7 @@ struct AppView: View {
         .environmentObject(dataModel)
         .navigationTitle("Workouts")
         .navigationBarTitleDisplayMode(.inline)
-        .background(.regularMaterial)
+        .background(Color(.secondarySystemBackground))
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button("Stats", systemImage: "chart.bar.doc.horizontal.fill") {
@@ -159,5 +148,6 @@ struct AppView: View {
 #Preview {
     NavigationStack {
         AppView()
+            .environmentObject(DataModel.shared)
     }
 }

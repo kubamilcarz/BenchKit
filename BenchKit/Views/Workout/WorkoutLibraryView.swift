@@ -16,7 +16,7 @@ struct WorkoutLibraryView: View {
                 Button("Manual", systemImage: "pencil") {
                     
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(BenchKitPrimaryButton())
             }
             .padding()
             .background(.background, in: .rect(cornerRadius: 12))
