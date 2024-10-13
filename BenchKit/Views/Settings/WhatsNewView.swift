@@ -64,13 +64,12 @@ struct WhatsNewSheet: View {
                 } label: {
                     Label("Continue", systemImage: "arrow.forward.circle.fill")
                         .padding(10)
-                        .font(.headline)
                         .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(BenchKitPrimaryButton())
                 .padding(.horizontal, 30)
-                .padding(.vertical)
-                .background(.ultraThinMaterial, ignoresSafeAreaEdges: .all)
+                .padding(.top)
+                .background(.regularMaterial, ignoresSafeAreaEdges: .all)
             }
             
             VStack {

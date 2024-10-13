@@ -148,10 +148,12 @@ struct BenchKitApp: App {
             Button {
                 unlock()
             } label: {
-                Text("Unlock")
-                    .padding(.horizontal, 5)
+                Label("Unlock BenchKit", systemImage: "key.horizontal.fill")
+                    .padding(10)
+                    .frame(maxWidth: .infinity)
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(BenchKitPrimaryButton())
+            .padding(.horizontal, 20)
         }
         .padding()
         .frame(maxWidth: .infinity)

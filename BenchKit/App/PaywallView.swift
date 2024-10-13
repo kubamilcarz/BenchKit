@@ -38,10 +38,12 @@ struct PaywallView: View {
     
     var isNested: Bool
     var isSimple: Bool
+    var isOnboarding: Bool
     
-    init(isNested: Bool = false, isSimple: Bool = false) {
+    init(isNested: Bool = false, isSimple: Bool = false, isOnboarding: Bool = false) {
         self.isNested = isNested
         self.isSimple = isSimple
+        self.isOnboarding = isOnboarding
     }
     
     enum PlusProduct: String {
@@ -96,6 +98,7 @@ struct PaywallView: View {
                     .padding(.horizontal, 30)
                     .frame(maxWidth: .infinity)
                     .multilineTextAlignment(.center)
+                    .padding(.top, isOnboarding ? 90 : 0)
                     
                     VStack(spacing: 30) {
                         if !purchaseManager.hasUnlockedPlus {
@@ -136,7 +139,7 @@ struct PaywallView: View {
                         } else {
                             VStack(spacing: 10) {
                                 Text("Welcome to BenchKit+")
-                                    .font(.system(.title2, design: .serif).bold())
+                                    .font(.title2.bold())
                                     .foregroundStyle(.accent.gradient)
                                 
                                 Text("Enjoy your access to a range of essential features!") // TODO: UX copy
@@ -198,7 +201,12 @@ struct PaywallView: View {
                 .blur(radius: 30)
                 .padding([.top, .horizontal], -200)
                 .frame(height: 40)
-                .padding(.top, -40)
+                .padding(.top, isOnboarding ? 0 : -40)
+            
+            if !isNested {
+                CloseButton
+                    .padding(.top, isOnboarding ? 60 : 0)
+            }
         }
         #if !os(macOS)
         .manageSubscriptionsSheet(isPresented: $isShowingManageSubscription)
@@ -232,20 +240,22 @@ struct PaywallView: View {
             }
             
             ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    #if os(iOS)
-                    if allowsHaptics {
-                        let generator = UIImpactFeedbackGenerator(style: .light)
-                        generator.impactOccurred()
+                if isNested {
+                    Button {
+                        #if os(iOS)
+                        if allowsHaptics {
+                            let generator = UIImpactFeedbackGenerator(style: .light)
+                            generator.impactOccurred()
+                        }
+                        #endif
+                        dismiss()
+                    } label: {
+                        Label("Close", systemImage: "xmark.circle.fill")
+                            .symbolRenderingMode(.hierarchical)
+                            .foregroundStyle(.accent)
                     }
-                    #endif
-                    dismiss()
-                } label: {
-                    Label("Close", systemImage: "xmark.circle.fill")
-                        .symbolRenderingMode(.hierarchical)
-                        .foregroundStyle(.accent)
+                    .buttonStyle(.plain)
                 }
-                .buttonStyle(.plain)
             }
         }
     }
@@ -301,7 +311,8 @@ struct PaywallView: View {
                     dismiss()
                 } label: {
                     Image(systemName: "xmark.circle.fill")
-                        .font(.title3)
+                        .font(.title2)
+                        .symbolRenderingMode(.hierarchical)
                         .bold()
                         .foregroundStyle(.accent.secondary)
                 }

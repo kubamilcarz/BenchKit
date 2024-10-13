@@ -14,7 +14,7 @@ enum BenchKit {
     
     
     static let terms: URL = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula")!
-    static let privacy: URL = URL(string: "")! // TODO: Privacy Policy link
+    static let privacy: URL = URL(string: "https://kubamilcarz.notion.site/BenchKit-Privacy-Policy-11ea114c5abb8085b326e853eafd4e9a?pvs=4")!
     
     static let version = "1.0.0"
     static let copyright = String(localized: "© copyright 2024 Kuba Milcarz")

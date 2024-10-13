@@ -62,13 +62,13 @@ struct RootView: View {
                     .frame(width: 500, height: 700)
                     #endif
             }
-//            .fullScreenCover(isPresented: $isShowingOnboarding) {
-//                TelemetryDeck.signal(Analytics.finishedOnboarding.id)
-//                
-//                requestReview()
-//            } content: {
-//                OnboardingView()
-//            }
+            .fullScreenCover(isPresented: $isShowingOnboarding) {
+                TelemetryDeck.signal(Analytics.finishedOnboarding.id)
+                
+                requestReview()
+            } content: {
+                OnboardingView()
+            }
             .task {
                 await purchaseManager.updatePurchasedProducts()
                 
